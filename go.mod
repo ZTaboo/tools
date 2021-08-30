@@ -1,4 +1,4 @@
-module tools
+module github.com/ZTaboo/tools
 
 go 1.16
 
