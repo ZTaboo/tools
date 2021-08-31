@@ -1,5 +1,5 @@
 // Package cors 本函数针对gin框架的跨域问题
-package cors
+package web
 
 import (
 	"fmt"
@@ -7,13 +7,17 @@ import (
 	"net/http"
 )
 
-func ZCors() gin.HandlerFunc {
+type Header struct {
+	Value string
+}
+
+func (data *Header) ZCors() func(c *gin.Context) {
 	return func(c *gin.Context) {
 		method := c.Request.Method
 		origin := c.Request.Header.Get("Origin")
 		if origin != "" {
 			//接收客户端发送的origin （重要！）
-			c.Writer.Header().Set("Access-Control-Allow-Origin", "*")
+			c.Writer.Header().Set("Access-Control-Allow-Origin", data.Value)
 			//服务器支持的所有跨域请求的方法
 			c.Header("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE,UPDATE")
 			//允许跨域设置可以返回其他子段，可以自定义字段
